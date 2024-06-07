@@ -38,6 +38,26 @@ def monhistogramme():
 @app.route("/contact/")
 def MaPremiereAPI():
     return render_template("moncontact.html")
+
+@app.route('/commits/data')
+def get_commits_data():
+    url = 'https://api.github.com/repos/OliveurTwistAgain/Flask_Meteo/commits'
+    response = urlopen(url)
+    raw_content = response.read()
+    json_content = json.loads(raw_content.decode('utf-8'))
+    
+    commit_minutes = []
+    for commit in json_content:
+        date_string = commit['commit']['author']['date']
+        date_object = datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
+        commit_minutes.append(date_object.minute)
+    
+    return jsonify(commit_minutes=commit_minutes)
+ 
+
+@app.route("/commits/")
+def commits():
+    return render_template("commits.html")
   
 
 if __name__ == "__main__":
