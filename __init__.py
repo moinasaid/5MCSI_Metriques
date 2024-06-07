@@ -41,7 +41,7 @@ def MaPremiereAPI():
 
 @app.route('/commits/data')
 def get_commits_data():
-    url = 'https://api.github.com/repos/OliveurTwistAgain/Flask_Meteo/commits'
+    url = 'https://api.github.com/repos/moinasaid/5MCSI_Metriques/commits'
     response = urlopen(url)
     raw_content = response.read()
     json_content = json.loads(raw_content.decode('utf-8'))
